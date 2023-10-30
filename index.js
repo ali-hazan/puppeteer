@@ -33,7 +33,8 @@ const getNews = async () => {
     let $ = cheerio.load(news);
     const title = $("div.ib_head").text().trim();
     const description = $("div.ib_text p").text().trim();
-    const date = $("span.die-miniatqr-bottom-time-views").text().trim();
+    const unformattedDate = $("span.die-miniatqr-bottom-time-views").text().trim().split('.');
+    const date = `${unformattedDate[2]}-${unformattedDate[1]}-${unformattedDate[0]}`
     const picture = $("div.ib_pict img").attr("src");
     const link = $("a").attr("href");
     latestFiveNews.push({
